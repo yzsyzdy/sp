@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<html lang="cn" style="position:fixed; width: 100%; overflow: hidden; ">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <title>主页 - YCBOJ</title>
+    <link rel="stylesheet" href="template/syzoj/css/style.css">
+<link rel="stylesheet" href="template/syzoj/css/tomorrow.css">
+<link rel="stylesheet" href="template/syzoj/css/semantic.min.css?v=0.1">
+<link rel="stylesheet" href="template/syzoj/css/katex.min.css">
+<link href="template/syzoj/css/morris.min.css" rel="stylesheet">
+<link href="template/syzoj/css/FiraMono.css" rel="stylesheet">
+<link href="template/syzoj/css/latin.css" rel="stylesheet">
+<link href="template/syzoj/css/Exo.css?v=0.1" rel="stylesheet">
+        <style>
+@media (max-width: 991px) {
+        .mobile-only {
+                display:block !important;
+        }
+
+        .desktop-only {
+            display:none !important;
+        }
+}
+
+</style>
+        
+<!-- 苹果液体玻璃效果所需SVG滤镜 -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <filter id="customLensFilter" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+    <feComponentTransfer in="SourceAlpha" result="alpha">
+      <feFuncA type="identity" />
+    </feComponentTransfer>
+    <feGaussianBlur in="alpha" stdDeviation="50" result="blur" />
+    <feDisplacementMap in="SourceGraphic" in2="blur" scale="50" xChannelSelector="A" yChannelSelector="A" />
+  </filter>
+</svg>
+
+<!-- 玻璃效果样式 - 整合到.padding类中 -->
+<style>
+:root {
+  --lg-bg-color: rgba(255, 255, 255, 0.55);
+  --lg-highlight: rgba(255, 255, 255, 0.75);
+  /*--lg-text: #ffffff;*/
+  --lg-red: #fb4268;
+  --lg-grey: #444739;
+}
+
+/* 为.padding类添加玻璃效果 */
+.padding {
+  position: relative;
+  border-radius: 3rem;
+  overflow: hidden;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+  color: var(--lg-text);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
+  padding: 2rem;
+}
+
+/* 玻璃效果层级 */
+.padding::before,
+.padding::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.padding::before {
+  z-index: 0;
+  backdrop-filter: blur(4px);
+  filter: url(#customLensFilter) saturate(120%) brightness(1.15);
+}
+
+.padding::after {
+  z-index: 1;
+  background: var(--lg-bg-color);
+  box-shadow: inset 1px 1px 0 var(--lg-highlight),
+    inset 0 0 5px var(--lg-highlight);
+}
+
+/* 确保内容在玻璃效果之上 */
+.padding > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* 表格样式适配 */
+.padding .ui.basic.table {
+  background: transparent !important;
+  width: 100%;
+}
+
+.padding .ui.basic.table th,
+.padding .ui.basic.table td {
+  color: var(--lg-grey) !important;
+  border-color: rgba(68, 71, 57, 0.2) !important;
+}
+
+/* 按钮样式 */
+.padding .ui.blue.button {
+  transition: transform 0.2s ease-out;
+}
+
+.padding .ui.blue.button:hover {
+  transform: scale(1.05);
+}
+
+.padding .ui.blue.button:active {
+  transform: scale(0.95);
+}
+</style>
+    <script src="/include/jquery-latest.js"></script>
+
+<!-- Scripts -->
+<script>
+    console.log('\n %c HUSTOJ %c https://github.com/zhblue/hustoj %c\n', 'color: #fadfa3; background: #000000; padding:5px 0;', 'background: #fadfa3; padding:5px 0;', '');
+    console.log('\n %c Theme By %c Baoshuo ( @renbaoshuo ) %c https://baoshuo.ren %c\n', 'color: #fadfa3; background: #000000; padding:5px 0;', 'background: #fadfa3; padding:5px 0;', 'background: #ffbf33; padding:5px 0;', '');
+    console.log('\n GitHub Homepage: https://github.com/zhblue/hustoj \n Document: https://zhblue.github.io/hustoj \n Bug report URL: https://github.com/zhblue/hustoj/issues \n \n%c ★ Please give us a star on GitHub! ★ %c \n', 'color: red;', '')
+</script>
+</head>
+
+   
+<body id="MainBg-C" style="position: relative; margin-top: 49px; height: calc(100% - 49px); overflow-y: overlay;">
+    <div id="page-header" class="ui fixed borderless menu" style="position: fixed; height: 49px; z-index:99999">
+        <div id="menu" class="ui stackable mobile ui container computer" style="margin-left:auto;margin-right:auto;">
+            <a class="header item"  href="/"><span
+                    style="font-family: 'Exo 2'; font-size: 1.5em; font-weight: 600; ">YCBOJ</span></a>
+            
+          <a class="desktop-only item" href="/"><i class="home icon"></i><span class="desktop-only">主页</span></a>            <!-- 问题 -->
+            <a class="item "
+                href="problemset.php"><i class="list icon"></i><span class="desktop-only">问题</span></a>
+            <!-- 来源/分类 -->
+            <a class="item "
+                href="category.php"><i class="globe icon"></i><span class="desktop-only">来源/分类</span></a>
+            <!-- 竞赛/作业 -->
+            <a class="item " href="contest.php?my" ><i
+                    class="trophy icon"></i><span class="desktop-only"> 竞赛&作业</span></a>
+            <!-- 状态 -->
+            <a class="item " href="status.php"><i
+                    class="tasks icon"></i><span class="desktop-only">状态</span></a>
+            <!-- 排名 -->
+            <a class="item  "
+                href="ranklist.php"><i class="signal icon"></i><span class="desktop-only">排名</span></a>
+            <!--<a class="item " href="/discussion/global"><i class="comments icon"></i><span class="desktop-only">讨论版</span></a>-->
+            <!-- 近期比赛 -->    
+            <!-- 常见问答 -->
+            <a class="item " href="faqs.php"><i
+                    class="help circle icon"></i><span class="desktop-only"> 常见问答</span></a>
+            <!-- 讨论板 -->
+                                                              
+            <div class="right menu">
+                                <a href="/userinfo.php?user=20251044"
+                    style="color: inherit; ">
+                    <div class="ui simple dropdown item">
+                        20251044(于佳瑞)[202510]                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                                <a class="item" href="modifypage.php"><i class="edit icon"></i>设置注册信息</a>
+                                <a class="item" href="portal.php"><i class="tasks icon"></i>待完成的任务</a>
+                                                                                                <a class="item" href="logout.php"><i class="power icon"></i>注销</a>
+                        </div>
+                    </div>
+                </a>
+                            </div>
+        </div>
+    </div>
+    <div style="margin-top: 49px; ">
+        <div id="main" class="ui main container">
+<head>
+
+<link rel="stylesheet" href="template/syzoj/css/slide.css">
+
+<script  src="template/syzoj/js/echarts.min.js"></script>
+</head>
+<div class="padding">
+    <div class="ui three column grid">
+        <div class="eleven wide column">
+            
+            <h4 class="ui top attached block header"><i class="ui info icon"></i>公告</h4>
+            <div class="ui bottom attached segment">
+                <table class="ui very basic table">
+                    <thead>
+                        <tr>
+                            <th>标题</th>
+                            <th>时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><a href="viewnews.php?id=1004">YCBOJ介绍</a></td><td>2025-09-26 13:19:40</td></tr><tr><td><a href="viewnews.php?id=1005">Python 3 教程</a></td><td>2025-03-26 08:41:56</td></tr><tr><td><a href="viewnews.php?id=1008">2024年嘉兴市青少年计算机现场赛活动的通知</a></td><td>2024-10-14 12:51:20</td></tr><tr><td><a href="viewnews.php?id=1007">2024年嘉兴市青少年计算机现场赛赛前理论知识训练账号公布</a></td><td>2024-09-30 15:15:49</td></tr><tr><td><a href="viewnews.php?id=1011">桐乡市初中信息科技程序设计现场赛活动的预备通知</a></td><td>2024-05-13 08:01:37</td></tr><tr><td><a href="viewnews.php?id=1010">十大经典排序算法</a></td><td>2024-05-13 07:48:15</td></tr><tr><td><a href="viewnews.php?id=1009">Python 测验题</a></td><td>2024-05-13 07:45:51</td></tr>                    </tbody>
+                </table>
+            </div>
+            <h4 class="ui top attached block header"><i class="ui star icon"></i>本月之星</h4>
+            <div class="ui bottom attached segment">
+                <table class="ui very basic center aligned table" style="table-layout: fixed; ">
+                    <tbody>
+        <tr><td><a target='_blank' href='userinfo.php?user=20251044'>⭐20251044⭐</a></td><td>于佳瑞</td><td>5</td></tr>                    </tbody>
+                </table>
+            </div>
+        
+            <h4 class="ui top attached block header"><i class="ui star icon"></i>HelloWorld!</h4>
+            <div class="ui bottom attached segment">
+                <table class="ui very basic left aligned table" style="table-layout: fixed; ">
+                    <tbody>
+
+                                                 <tr><td>
+                                <center> Recent submission :
+                                        194/day .
+                                        <div id=submission style="width:80%;height:300px"></div>
+                                </center>
+
+                        </td></tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="right floated five wide column">
+            <h4 class="ui top attached block header"><i class="ui rss icon"></i> 最近追题 </h4>
+            <div class="ui bottom attached segment">
+                <table class="ui very basic center aligned table">
+                    <thead>
+                        <tr>
+                            <th width="60%">标题</th>
+                            <th width="40%">时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td><a href="problem.php?id=1002">打印出所有"水仙花数"</a></td><td>10-24</td></tr><tr><td><a href="problem.php?id=1003">小球从M米高度自由下落问题</a></td><td>10-24</td></tr><tr><td><a href="problem.php?id=1101">桐乡市初中信息科技程序设计现场赛选择题（2024）</a></td><td>10-22</td></tr><tr><td><a href="problem.php?id=1106">2024年真题3</a></td><td>10-19</td></tr>                    </tbody>
+                </table>
+            </div>
+            <h4 class="ui top attached block header"><i class="ui search icon"></i>查找</h4>
+            <div class="ui bottom attached segment">
+                <form action="problem.php" method="get">
+                    <div class="ui search" style="width: 100%; ">
+                        <div class="ui left icon input" style="width: 100%; ">
+                            <input class="prompt" style="width: 100%; " type="text" placeholder="题目编号 …" name="id">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results" style="width: 100%; "></div>
+                    </div>
+                </form>
+            </div>
+            <h4 class="ui top attached block header"><i class="ui calendar icon"></i>近期比赛</h4>
+            <div class="ui bottom attached center aligned segment">
+                <table class="ui very basic center aligned table">
+                    <thead>
+                        <tr>
+                            <th>作业比赛名称</th>
+                            <th>开始时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr><td><a href="contest.php?cid=1008">2025 年嘉兴市青少年计算机现场赛赛前必答题</a></td><td>09-16</td></tr><tr><td><a href="contest.php?cid=1007">2024学年下程序设计拓展课习题</a></td><td>03-05</td></tr><tr><td><a href="contest.php?cid=1006">2024学年上程序设计拓展课习题</a></td><td>12-02</td></tr><tr><td><a href="contest.php?cid=1005">2024 年嘉兴市青少年计算机现场赛必答题</a></td><td>08-25</td></tr><tr><td><a href="contest.php?cid=1004">2024桐乡市初中信息科技程序设计现场赛必答题</a></td><td>05-07</td></tr>                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script src="template/syzoj/css/semantic.min.js"></script>
+<script src="template/syzoj/css/Chart.min.js"></script>
+    <style>
+    .footer {
+        line-height: 1.4285em;
+        font-family: "Lato", "Noto Sans CJK SC", "Source Han Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "WenQuanYi Micro Hei", "Droid Sans Fallback", "sans-serif";
+        box-sizing: inherit;
+        padding: 0 !important;
+        border: none !important;
+        color: #888;
+        font-size: 1rem;
+        margin: 35px 0 14px !important;
+        position: relative;
+        width: 100%;
+        bottom: 0;
+        background: none transparent;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    </style>
+    
+<!--  to enable mathjax in hustoj:
+svn export http://github.com/mathjax/MathJax/trunk /home/judge/src/web/mathjax
+<script type="text/javascript"
+  src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+<!--
+or
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+-->
+<script src="template/bs3/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+  var msg="<marquee style='margin-top:-10px;margin-bottom:10px' id=broadcast direction='left' scrollamount=3 scrolldelay=50 onMouseOver='this.stop()'"+
+      " onMouseOut='this.start()' class='padding' >"+""+"</marquee>";
+    $("form").append("<div id='csrf' />");
+  $("#csrf").load("csrf.php");
+  let left=window.innerWidth-parseInt($("#menu").css("width")) - 100;
+  left/=2;
+  $("#menu").attr("style","margin-left:auto;margin-right:auto;");
+  var screen_width = window.screen.width;
+  var screen_height = window.screen.height;
+  if(screen_width < 800) $("#main").attr("class","");
+  if(screen_width < 800) $("#MainBg-C").attr("class","");
+
+ $('body').css('background','url(/image/background.jpg
+)').css('background-repeat','no-repeat').css('background-size','100%');   if(window.location.href.indexOf("rank")==-1){
+	  $("tr").mouseover(function(){$(this).addClass("active")});
+	  $("tr").mouseout(function(){$(this).removeClass("active")})
+  }
+
+
+});
+
+
+function problem_add_source(sp,pid){
+	console.log("pid:"+pid);
+	let p=$(sp).parent();
+	p.html("<form onsubmit='return false;'><input type='hidden' name='m' value='problem_add_source'><input type='hidden' name='pid' value='"+pid+"'><input type='text' class='input input-large' name='ns'></form>");
+	p.find("input").focus();
+	p.find("input").change(function(){
+		console.log(p.find("form").serialize());
+		let ns=p.find("input[name=ns]").val();
+		console.log("new source:"+ns);
+		$.post("admin/ajax.php",p.find("form").serialize());
+		p.parent().append("<span class='label label-success'>"+ns+"</span>");
+		p.html("<span class='label label-success' pid='"+pid+"' onclick='problem_add_source(this,"+pid+");'>+</span>");
+	});
+}
+$(".hint pre").each(function(){
+        var plus="<span class='glyphicon glyphicon-plus'>点击查看剧透级题解</span>";
+        var content=$(this);
+        $(this).before(plus);
+        $(this).prev().click(function(){
+                content.toggle();
+        });
+   //     $(this).hide();
+});
+
+
+  console.log("If you want to change the appearance of the web pages, make a copy of bs3 under template directory.\nRename it to whatever you like, and change the $OJ_TEMPLATE value in db_info.inc.php\nAfter that modify files under your own directory .\n");
+  console.log("To enable mathjax in hustoj, check line 15 in /home/judge/src/web/template/bs3/js.php");
+  console.log( "█████████████████████████████████████████\n████ ▄▄▄▄▄ ██▄▄ ▀  █▀█▄▄██ ███ ▄▄▄▄▄ ████\n████ █   █ █▀▄  █▀██ ██▄▄  █▄█ █   █ ████\n████ █▄▄▄█ █▄▀ █▄█▀█  ▄▄█▀▀▄██ █▄▄▄█ ████\n████▄▄▄▄▄▄▄█▄▀▄█ █ █▄█▄▀ █ ▀▄█▄▄▄▄▄▄▄████\n████ ▄▀▀█▄▄ █▄ █▄▄▄█▄█▀███▄  ██▀ ▄▀▀█████\n████▀█▀▀▀▀▄▀▀▄▀ ▄▄█▄ █▀▀ ▄▀▀▄  █▄▄▀▄█████\n████▄█ ▀▄▀▄▄ ▄ █▀█▀█ ▄▀▄ █▀▀▄█  ███  ████\n████▄ █▄ █▄▀▀▄██▀▄ ▄ ▄▄█▄█▀█▀   ▄█▀▄▀████\n████▄▄█   ▄▄██ █▄▄▀  ▄▀█▀▀▀ ▄█▀▄▄▀█ ▀████\n█████▄   ▀▄▄█ ▄▀▄▄▀▄▄▄▀▄▀█▀  ▀▀█▄█▀█▄████\n████ ▀ █▄▀▄▄█▀▀▄▀▀▄▄▄ ▀▀█▀ ▀▄▄█▀ ▀█ █████\n████ █▀   ▄ ▄ ▀█▀▄█ █▄▄███▀██▀▀██ ▀▄█████\n████▄▄▄██▄▄█ ▀█▄▄▄▀█ █▀▀█▀ █ ▄▄▄ █▀▄▀████\n████ ▄▄▄▄▄ █ ▄  ▄▄▀  ▄ ▀▄▄▄▄ █▄█   ▄█████\n████ █   █ ██ ▄▄▀▀█ ▀▀▀▀▀ ▄▀  ▄  ▀███████\n████ █▄▄▄█ █▀▄▄▄▀▀█ ▀▄ ▄▀██▄█ ██ █ █▄████\n████▄▄▄▄▄▄▄█▄███▄█▄▄▄████▄▄▄▄▄▄█▄██▄█████\n█████████████████████████████████████████\n            QQ扫码加官方群");
+</script>
+
+    <div class="footer">
+        <div class="ui center aligned container" title="如果你想移除这个信息，请编辑template/syzoj/footer.php" >
+            <div>YCBOJ is powered by <a style="color: inherit !important;" class=" " title="GitHub"
+                    target="_blank" rel="noreferrer noopener" href="https://github.com/zhblue/hustoj">HUSTOJ</a>, Theme
+                by <a style="color: inherit !important;" href="https://github.com/syzoj">SYZOJ</a></div>
+         <!--   <div> Running on <a href='https://debian.org' target='_blank'>Debian11</a> / <a href='https://www.loongson.cn' target='_blank'>Loongson 3A3000</a> </div> -->
+                    </div>
+    </div>
+    </div>
+        <iframe id="sk" src="session.php" height=0px width=0px ></iframe>
+
+</body>
+
+</html>
+   
+  <script language="javascript" type="text/javascript" src="include/jquery.flot.js"></script>
+        <script type="text/javascript">
+			$( function () {
+			var all=[194,78,109,182,74,54,53,405,1] ;
+			var sub_echarts= echarts.init( $( "#submission" )[0]);
+			var maxY=Math.max(all);
+			var option = {
+			tooltip: {
+				trigger: 'axis',
+				formatter: '{b0}({a0}): {c0}<br />{b1}({a1}): {c1}'
+			},
+			legend: {
+			data: ['提交','正确' ]
+			},
+			xAxis: {
+			data: ["2025-10-24","2025-10-23","2025-10-22","2025-10-21","2025-10-20","2025-10-19","2025-10-18","2025-10-17","2025-10-16"] 
+			,
+			inverse:true
+			},
+			yAxis: [
+				{
+					type: 'value',
+					name: '提交'
+				}
+			],
+			series: [
+			{
+				name: '提交',
+				type: 'bar',
+				data: all
+				}
+			,
+			{
+				name: '正确',
+				type: 'bar',
+				data: [69,21,28,58,20,15,23,86,0] 
+			}]
+			};
+			sub_echarts.setOption(option);
+
+
+                } );
+                //alert((new Date()).getTime());
+        </script>
+
+<!--not cached-->
